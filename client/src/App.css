@@ -41,3 +41,30 @@
 .btn--sign-out {
   background-color: blue;
 }
+
+.create-stream-form__field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.create-stream-form__label {
+  font-weight: bold;
+  flex: 0 1 20%;
+  font-size: 1.2rem;
+}
+
+.create-stream-form__input {
+  outline: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.create-stream-form__button {
+  background: blue;
+}
+
+.create-stream-form__button:hover {
+  background: rgba(0, 0, 255, 0.7);
+}
