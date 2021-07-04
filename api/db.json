@@ -1,0 +1,34 @@
+{
+  "streams": [
+    {
+      "title": "a",
+      "description": "b",
+      "userId": "104996659897691210636",
+      "id": 1
+    },
+    {
+      "title": "hh",
+      "description": "kkk",
+      "userId": "104996659897691210636",
+      "id": 2
+    },
+    {
+      "title": "hjkdf",
+      "description": "jkdf",
+      "userId": "104996659897691210636",
+      "id": 3
+    },
+    {
+      "title": "fd",
+      "description": "fdfe",
+      "userId": "104996659897691210636",
+      "id": 4
+    },
+    {
+      "title": "fee",
+      "description": "dfd",
+      "userId": "104996659897691210636",
+      "id": 5
+    }
+  ]
+}

@@ -1,10 +1,14 @@
+.heading-tertiary {
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+}
+
 .container {
   max-width: 114rem;
   margin: 0 auto;
 }
 
 .header {
-  background: yellow;
   margin-bottom: 3rem;
   font-size: 1.4rem;
   border-bottom: 3px solid lightgray;
@@ -13,17 +17,23 @@
 }
 
 .header__list {
-  padding: 1rem;
+  padding: 1rem 0;
   list-style-type: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.header__item {
+.header__item:not(:last-child) {
+  margin-right: 2rem;
+}
+
+.header__item:first-child {
+  margin-right: auto;
 }
 .header__link {
   text-decoration: none;
+  color: black;
 }
 
 .btn {
@@ -48,6 +58,12 @@
   margin-bottom: 1rem;
 }
 
+.create-stream-form__field--baseline {
+  display: flex;
+  margin-bottom: 1rem;
+  align-items: baseline;
+}
+
 .create-stream-form__label {
   font-weight: bold;
   flex: 0 1 20%;
@@ -67,4 +83,61 @@
 
 .create-stream-form__button:hover {
   background: rgba(0, 0, 255, 0.7);
+}
+
+.streams__list {
+  margin-bottom: 1rem;
+}
+.streams__item {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #ccc;
+}
+
+.streams__item:first-child {
+  border-top: 2px solid #ccc;
+}
+
+.streams__camera {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 2rem;
+}
+
+.streams__content {
+  margin-right: auto;
+}
+
+.streams__title {
+  font-size: 1.5rem;
+}
+
+.streams__description {
+  color: rgb(88, 86, 86);
+  font-size: 1.2rem;
+}
+
+.streams__button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 3px;
+  outline: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+.streams__button--edit {
+  background: blue;
+  margin-right: 1rem;
+}
+
+.streams__button--delete {
+  background: red;
+}
+
+.streams__button--create {
+  background: green;
+  float: right;
 }
