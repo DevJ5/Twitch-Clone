@@ -1,19 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchStreams } from '../../actions';
 
-const StreamList = (props) => {
-  console.log(props);
+const StreamList = ({ fetchStreams, streams, auth }) => {
   useEffect(() => {
-    const streams = props.fetchStreams();
-    console.log(streams);
-  }, []);
+    fetchStreams();
+  }, [fetchStreams]);
 
   const renderList = () => {
     const renderButtons = (stream) => {
-      if (props.auth.userId === stream.userId)
+      if (auth.userId === stream.userId)
         return (
           <div className="streams__buttons">
             <Link
@@ -21,23 +18,27 @@ const StreamList = (props) => {
               className="streams__button streams__button--edit">
               Edit
             </Link>
-            <button className="streams__button streams__button--delete">
+            <Link
+              to={`/streams/delete/${stream.id}`}
+              className="streams__button streams__button--delete">
               Delete
-            </button>
+            </Link>
           </div>
         );
     };
     return (
       <ul className="streams__list">
-        {props.streams.map((stream) => (
-          <li className="streams__item">
+        {streams.map((stream) => (
+          <li className="streams__item" key={stream.id}>
             <img
               src="camera-logo.png"
               alt="camera logo"
               className="streams__camera"
             />
             <div className="streams__content">
-              <div className="streams__title">{stream.title}</div>
+              <Link to={`/streams/${stream.id}`} className="streams__title">
+                {stream.title}
+              </Link>
               <div className="streams__description">{stream.description}</div>
             </div>
             {renderButtons(stream)}
@@ -51,7 +52,7 @@ const StreamList = (props) => {
     <div className="streams">
       <h2>Streams</h2>
       {renderList()}
-      {props.auth.isSignedIn ? (
+      {auth.isSignedIn ? (
         <Link
           to="/streams/new"
           className="streams__button streams__button--create">
