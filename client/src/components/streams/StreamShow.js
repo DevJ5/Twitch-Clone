@@ -1,30 +1,53 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
+import flv from 'flv.js';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchStream } from '../../actions';
 import Spinner from '../Spinner';
 
-const StreamShow = (props) => {
-  const { fetchStream } = props;
-  const { id } = props.match.params;
-  console.log(props);
-  useEffect(() => {
-    fetchStream(id);
-  }, [fetchStream, id]);
+const StreamShow = ({ match }) => {
+  const stream = useSelector((state) => state.streams[match.params.id]);
+  const dispatch = useDispatch();
+  const videoRef = useRef(null);
 
-  if (!props.stream) return <Spinner></Spinner>;
+  const { id } = match.params;
+
+  useEffect(() => {
+    dispatch(fetchStream(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    let flvPlayer;
+    if (stream) {
+      flvPlayer = flv.createPlayer({
+        type: 'flv',
+        url: `http://localhost:8000/live/${id}.flv`,
+      });
+      flvPlayer.attachMediaElement(videoRef.current);
+      flvPlayer.load();
+    }
+
+    return () => {
+      console.log('Unmounted');
+      if (flvPlayer) flvPlayer.destroy();
+    };
+  }, [stream, id]);
+
+  if (!stream) return <Spinner></Spinner>;
 
   return (
     <div>
-      <h1>{props.stream.title}</h1>
-      <p>{props.stream.description}</p>
+      <video src="" ref={videoRef} style={{ width: '100%' }} controls></video>
+      <h1>{stream.title}</h1>
+      <p>{stream.description}</p>
     </div>
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    stream: state.streams[ownProps.match.params.id],
-  };
-};
+// const mapStateToProps = (state, ownProps) => {
+//   return {
+//     stream: state.streams[ownProps.match.params.id],
+//   };
+// };
 
-export default connect(mapStateToProps, { fetchStream })(StreamShow);
+// export default connect(mapStateToProps, { fetchStream })(StreamShow);
+export default StreamShow;
