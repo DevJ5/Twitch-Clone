@@ -1,14 +1,14 @@
 {
   "streams": [
     {
-      "title": "df",
+      "title": "Stream 1",
       "description": "asfd",
       "userId": "104996659897691210636",
       "id": 2
     },
     {
-      "title": "eeef",
-      "description": "eeef",
+      "title": "Stream 2",
+      "description": "Stream 2",
       "userId": "104996659897691210636",
       "id": 3
     }

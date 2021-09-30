@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchStreams } from '../../actions';
 
-const StreamList = ({ fetchStreams, streams, auth }) => {
+const StreamList = () => {
+  const dispatch = useDispatch();
+  const streams = useSelector((state) => Object.values(state.streams));
+  const auth = useSelector((state) => state.auth);
+
   useEffect(() => {
-    fetchStreams();
-  }, [fetchStreams]);
+    dispatch(fetchStreams());
+  }, [dispatch]);
 
   const renderList = () => {
     const renderButtons = (stream) => {
@@ -63,9 +67,4 @@ const StreamList = ({ fetchStreams, streams, auth }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  streams: Object.values(state.streams),
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps, { fetchStreams })(StreamList);
+export default StreamList;
