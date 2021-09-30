@@ -1,6 +1,5 @@
 # Twitch clone
 
-Demo
 ![](twitch-clone.gif)
 
 This twitch clone application allows the user to login with Google and start streaming.
@@ -31,3 +30,5 @@ OBS can be tricky to get to work. 4 important things:
 - Setup the stream server to point to rtmp://localhost/live
 - Set the stream key to whatever the id is of your stream
   ![](twitch-setup.png)
+
+Happy Streaming <3
