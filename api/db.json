@@ -2,15 +2,9 @@
   "streams": [
     {
       "title": "Stream 1",
-      "description": "asfd",
+      "description": "This is a fun stream!",
       "userId": "104996659897691210636",
-      "id": 2
-    },
-    {
-      "title": "Stream 2",
-      "description": "Stream 2",
-      "userId": "104996659897691210636",
-      "id": 3
+      "id": 1
     }
   ]
 }

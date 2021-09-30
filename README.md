@@ -1,5 +1,8 @@
 # Twitch clone
 
+Demo
+![twitch-clone.gif]
+
 This twitch clone application allows the user to login with Google and start streaming.
 
 Suggested setup with OBS:
