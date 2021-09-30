@@ -30,4 +30,4 @@ OBS can be tricky to get to work. 4 important things:
 - Set up audio and display capture
 - Setup the stream server to point to rtmp://localhost/live
 - Set the stream key to whatever the id is of your stream
-  ![](https://i.ibb.co/Lg3H4yL/twitch-setup.png)
+  ![](twitch-setup.png)
