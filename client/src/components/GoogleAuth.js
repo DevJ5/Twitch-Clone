@@ -1,14 +1,18 @@
 import React, { useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { signIn, signOut } from '../actions';
 
-const GoogleAuth = ({ isSignedIn, signIn, signOut }) => {
+const GoogleAuth = () => {
+  const isSignedIn = useSelector((state) => state.auth.isSignedIn);
+  const dispatch = useDispatch();
+
   const auth = useRef('');
+
   useEffect(() => {
     const onAuthChange = (isSignedIn) => {
-      if (isSignedIn) signIn(auth.current.currentUser.get().getId());
-      else signOut();
+      if (isSignedIn) dispatch(signIn(auth.current.currentUser.get().getId()));
+      else dispatch(signOut());
     };
 
     window.gapi.load('client:auth2', () => {
@@ -25,7 +29,7 @@ const GoogleAuth = ({ isSignedIn, signIn, signOut }) => {
           auth.current.isSignedIn.listen(onAuthChange);
         });
     });
-  }, [signIn, signOut]);
+  }, [dispatch]);
 
   const signInHandler = () => {
     auth.current.signIn();
@@ -58,10 +62,4 @@ const GoogleAuth = ({ isSignedIn, signIn, signOut }) => {
   return <div>{renderAuthButton()}</div>;
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isSignedIn: state.auth.isSignedIn,
-  };
-};
-
-export default connect(mapStateToProps, { signIn, signOut })(GoogleAuth);
+export default GoogleAuth;
