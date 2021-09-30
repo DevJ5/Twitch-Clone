@@ -1,10 +1,16 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import { signIn, signOut } from '../actions';
 
-class GoogleAuth extends Component {
-  componentDidMount() {
+const GoogleAuth = ({ isSignedIn, signIn, signOut }) => {
+  const auth = useRef('');
+  useEffect(() => {
+    const onAuthChange = (isSignedIn) => {
+      if (isSignedIn) signIn(auth.current.currentUser.get().getId());
+      else signOut();
+    };
+
     window.gapi.load('client:auth2', () => {
       window.gapi.client
         .init({
@@ -13,51 +19,44 @@ class GoogleAuth extends Component {
           scope: 'email',
         })
         .then(() => {
-          this.auth = window.gapi.auth2.getAuthInstance();
+          auth.current = window.gapi.auth2.getAuthInstance();
 
-          this.onAuthChange(this.auth.isSignedIn.get());
-          this.auth.isSignedIn.listen(this.onAuthChange);
+          onAuthChange(auth.current.isSignedIn.get());
+          auth.current.isSignedIn.listen(onAuthChange);
         });
     });
-  }
+  }, [signIn, signOut]);
 
-  onAuthChange = (isSignedIn) => {
-    if (isSignedIn) this.props.signIn(this.auth.currentUser.get().getId());
-    else this.props.signOut();
+  const signInHandler = () => {
+    auth.current.signIn();
   };
 
-  signIn = () => {
-    this.auth.signIn();
+  const signOutHandler = () => {
+    auth.current.signOut();
   };
 
-  signOut = () => {
-    this.auth.signOut();
-  };
-
-  renderAuthButton() {
+  const renderAuthButton = () => {
     let content;
-    if (this.props.isSignedIn === null) {
+    if (isSignedIn === null) {
       content = null;
-    } else if (!this.props.isSignedIn) {
+    } else if (!isSignedIn) {
       content = (
-        <button className="btn btn--sign-in" onClick={this.signIn}>
+        <button className="btn btn--sign-in" onClick={signInHandler}>
           Sign in with G
         </button>
       );
     } else {
       content = (
-        <button className="btn btn--sign-out" onClick={this.signOut}>
+        <button className="btn btn--sign-out" onClick={signOutHandler}>
           Sign out
         </button>
       );
     }
     return content;
-  }
+  };
 
-  render() {
-    return <div>{this.renderAuthButton()}</div>;
-  }
-}
+  return <div>{renderAuthButton()}</div>;
+};
 
 const mapStateToProps = (state) => {
   return {

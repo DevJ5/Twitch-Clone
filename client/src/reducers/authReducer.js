@@ -2,8 +2,7 @@ import { SIGN_IN, SIGN_OUT } from '../actions/types';
 
 const initialState = { isSignedIn: null, userId: null };
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default (state = initialState, { type, payload }) => {
+const authReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case SIGN_IN:
       return { isSignedIn: true, userId: payload };
@@ -14,3 +13,5 @@ export default (state = initialState, { type, payload }) => {
       return state;
   }
 };
+
+export default authReducer;
